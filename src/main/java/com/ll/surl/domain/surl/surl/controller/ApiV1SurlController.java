@@ -12,6 +12,9 @@ import com.ll.surl.global.rq.Rq;
 import com.ll.surl.global.rsData.RsData;
 import com.ll.surl.standard.dto.KwTypeV3;
 import com.ll.surl.standard.dto.PageDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +29,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.http.MediaType.ALL_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
-@RequestMapping("/api/v1/surls")
+@RequestMapping(value = "/api/v1/surls", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+@Tag(name = "ApiV1SurlController", description = "SURL CRUD 컨트롤러")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ApiV1SurlController {
     private final SurlService surlService;
     private final SurlDocumentService surlDocumentService;
@@ -38,7 +47,8 @@ public class ApiV1SurlController {
     public record GetSurlsResponseBody(@NonNull PageDto<SurlDto> itemPage) {
     }
 
-    @GetMapping("")
+    @GetMapping(value = "", consumes = ALL_VALUE)
+    @Operation(summary = "SURL 목록, 검색가능")
     public RsData<GetSurlsResponseBody> getSurls(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "") String kw,
@@ -64,7 +74,8 @@ public class ApiV1SurlController {
     public record GetSurlResponseBody(@NonNull SurlDto item) {
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", consumes = ALL_VALUE)
+    @Operation(summary = "SURL 단건조회")
     public RsData<GetSurlResponseBody> getSurl(
             @PathVariable long id
     ) {
@@ -74,12 +85,6 @@ public class ApiV1SurlController {
         return RsData.of(
                 new GetSurlResponseBody(dto)
         );
-    }
-
-    public record SurlCreateReqBody(@NotBlank String url, String title) {
-    }
-
-    public record SurlCreateRespBody(String shortUrl) {
     }
 
 
@@ -95,9 +100,10 @@ public class ApiV1SurlController {
     ) {
     }
 
-    @PostMapping("")
+    @PostMapping(value = "")
+    @Operation(summary = "SURL 등록")
     public RsData<CreateSurlResponseBody> create(
-            @Valid @RequestBody ApiV1SurlController.CreateSurlRequestBody requestBody
+            @Valid @RequestBody CreateSurlRequestBody requestBody
     ) {
         Surl surl = surlService.create(rq.getMember(), requestBody.url, requestBody.title, requestBody.body);
 
@@ -116,7 +122,8 @@ public class ApiV1SurlController {
     ) {
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}")
+    @Operation(summary = "SURL 등록")
     @Transactional
     public RsData<ModifySurlResponseBody> modify(
             @PathVariable long id,
@@ -137,7 +144,7 @@ public class ApiV1SurlController {
     ) {
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", consumes = ALL_VALUE)
     @Transactional
     public RsData<DeleteSurlResponseBody> delete(
             @PathVariable long id
