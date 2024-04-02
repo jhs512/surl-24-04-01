@@ -57,7 +57,9 @@ dependencies {
 
     implementation 'com.meilisearch.sdk:meilisearch-java:0.11.8'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "com.vaadin.external.google", module: "android-json"
+    }
 }
 
 tasks.named('test') {
