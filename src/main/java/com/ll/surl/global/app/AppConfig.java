@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,23 +22,23 @@ public class AppConfig {
         return new BCryptPasswordEncoder();
     }
 
-    private static String activeProfile;
+    private static Environment environment;
 
-    @Value("${spring.profiles.active}")
-    public void setActiveProfile(String activeProfile) {
-        this.activeProfile = activeProfile.split(",", 2)[0].trim();
+    @Autowired
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 
     public static boolean isProd() {
-        return activeProfile.equals("prod");
+        return environment.matchesProfiles("prod");
     }
 
     public static boolean isDev() {
-        return activeProfile.equals("dev");
+        return environment.matchesProfiles("dev");
     }
 
     public static boolean isTest() {
-        return activeProfile.equals("Test");
+        return environment.matchesProfiles("test");
     }
 
     public static boolean isNotProd() {
