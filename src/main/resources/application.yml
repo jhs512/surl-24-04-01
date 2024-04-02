@@ -4,7 +4,7 @@ spring:
   application:
     name: surl
   profiles:
-    active: dev
+    active: dev, kafka, meilisearch
     include: secret
   threads:
     virtual:
@@ -43,6 +43,13 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
+  kafka:
+    bootstrap-servers: localhost:19092
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      auto-offset-reset: earliest
 logging:
   level:
     com.ll.surl: DEBUG
@@ -68,6 +75,9 @@ custom:
         password: NEED_TO_SECRET
       garage:
         password: NEED_TO_SECRET
+  meilisearch:
+    host: http://127.0.0.1:7700
+    apiKey: masterKey
   site:
     cookieDomain: "${custom.dev.cookieDomain}"
     frontUrl: "${custom.dev.frontUrl}"

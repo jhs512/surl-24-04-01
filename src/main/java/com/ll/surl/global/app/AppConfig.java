@@ -25,7 +25,7 @@ public class AppConfig {
 
     @Value("${spring.profiles.active}")
     public void setActiveProfile(String activeProfile) {
-        this.activeProfile = activeProfile;
+        this.activeProfile = activeProfile.split(",", 2)[0].trim();
     }
 
     public static boolean isProd() {

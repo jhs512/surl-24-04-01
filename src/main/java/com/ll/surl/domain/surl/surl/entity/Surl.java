@@ -4,12 +4,9 @@ import com.ll.surl.domain.member.member.entity.Member;
 import com.ll.surl.global.app.AppConfig;
 import com.ll.surl.global.jpa.entity.BaseTime;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity

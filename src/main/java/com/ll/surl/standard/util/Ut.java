@@ -3,6 +3,7 @@ package com.ll.surl.standard.util;
 import com.ll.surl.global.app.AppConfig;
 import lombok.SneakyThrows;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class Ut {
@@ -13,6 +14,12 @@ public class Ut {
 
         public static boolean hasLength(String str) {
             return !isBlank(str);
+        }
+    }
+
+    public static class time {
+        public static long toTimeStamp(LocalDateTime localDateTime) {
+            return localDateTime.toEpochSecond(java.time.ZoneOffset.ofHours(9));
         }
     }
 

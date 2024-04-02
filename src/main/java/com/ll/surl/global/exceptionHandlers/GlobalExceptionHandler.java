@@ -3,7 +3,7 @@ package com.ll.surl.global.exceptionHandlers;
 import com.ll.surl.global.exceptions.GlobalException;
 import com.ll.surl.global.rq.Rq;
 import com.ll.surl.global.rsData.RsData;
-import com.ll.surl.standard.base.Empty;
+import com.ll.surl.standard.dto.Empty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

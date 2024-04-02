@@ -1,7 +1,7 @@
 package com.ll.surl.global.rsData;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ll.surl.standard.base.Empty;
+import com.ll.surl.standard.dto.Empty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

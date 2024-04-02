@@ -1,7 +1,7 @@
 package com.ll.surl.global.exceptions;
 
 import com.ll.surl.global.rsData.RsData;
-import com.ll.surl.standard.base.Empty;
+import com.ll.surl.standard.dto.Empty;
 import lombok.Getter;
 
 @Getter
