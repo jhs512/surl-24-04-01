@@ -247,6 +247,10 @@ class Rq {
 		this.replace(url);
 	}
 
+	public getFrontBaseUrl() {
+		return import.meta.env.VITE_CORE_FRONT_BASE_URL;
+	}
+
 	public getKakaoLoginUrl() {
 		return `${
 			import.meta.env.VITE_CORE_API_BASE_URL
