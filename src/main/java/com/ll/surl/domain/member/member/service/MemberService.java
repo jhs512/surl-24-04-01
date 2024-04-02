@@ -44,6 +44,45 @@ public class MemberService {
         return memberRepository.getReferenceById(id);
     }
 
+    @Transactional
+    public RsData<Member> modifyOrJoin(String username, String providerTypeCode, String nickname, String profileImgUrl) {
+        Member member = findByUsername(username).orElse(null);
+
+        if (member == null) {
+            return join(
+                    username, "", nickname, profileImgUrl
+            );
+        }
+
+        return modify(member, nickname, profileImgUrl);
+    }
+
+    @Transactional
+    public RsData<Member> join(String username, String password, String nickname, String profileImgUrl) {
+        if (findByUsername(username).isPresent()) {
+            return RsData.of("400-2", "이미 존재하는 회원입니다.");
+        }
+
+        Member member = Member.builder()
+                .username(username)
+                .password(passwordEncoder.encode(password))
+                .refreshToken(authTokenService.genRefreshToken())
+                .nickname(nickname)
+                .profileImgUrl(profileImgUrl)
+                .build();
+        memberRepository.save(member);
+
+        return RsData.of("회원가입이 완료되었습니다.".formatted(member.getUsername()), member);
+    }
+
+    @Transactional
+    public RsData<Member> modify(Member member, String nickname, String profileImgUrl) {
+        member.setNickname(nickname);
+        member.setProfileImgUrl(profileImgUrl);
+
+        return RsData.of("회원정보가 수정되었습니다.".formatted(member.getUsername()), member);
+    }
+
     public record AuthAndMakeTokensResponseBody(
             @NonNull Member member,
             @NonNull String accessToken,
