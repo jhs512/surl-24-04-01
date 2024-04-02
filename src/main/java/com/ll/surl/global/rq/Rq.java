@@ -202,4 +202,19 @@ public class Rq {
     public void destroySession() {
         req.getSession().invalidate();
     }
+
+    public void setCookie(String name, String value) {
+        Cookie cookie = new Cookie(name, value);
+        cookie.setPath("/");
+        cookie.setDomain(AppConfig.getSiteCookieDomain());
+        resp.addCookie(cookie);
+    }
+
+    public void setCookie(String name, String value, int maxAge) {
+        Cookie cookie = new Cookie(name, value);
+        cookie.setPath("/");
+        cookie.setDomain(AppConfig.getSiteCookieDomain());
+        cookie.setMaxAge(maxAge);
+        resp.addCookie(cookie);
+    }
 }
