@@ -4,7 +4,7 @@ spring:
   application:
     name: surl
   profiles:
-    active: dev, kafka, meilisearch
+    active: dev, kafka, meilisearch, rabbitmq
     include: secret
   threads:
     virtual:
@@ -50,6 +50,12 @@ spring:
     consumer:
       value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
       auto-offset-reset: earliest
+  rabbitmq:
+    host: localhost
+    port: 5672
+    stompPort: 61613
+    username: admin
+    password: admin
 logging:
   level:
     com.ll.surl: DEBUG

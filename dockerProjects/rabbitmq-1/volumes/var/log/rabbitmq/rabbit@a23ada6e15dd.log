@@ -189,3 +189,8 @@
 2024-04-02 00:11:33.171636+00:00 [info] <0.709.0>  * rabbitmq_management_agent
 2024-04-02 00:11:33.171636+00:00 [info] <0.709.0>  * rabbitmq_web_dispatch
 2024-04-02 00:11:33.355970+00:00 [info] <0.9.0> Time to start RabbitMQ: 7128827 us
+2024-04-02 00:22:19.313122+00:00 [info] <0.927.0> accepting STOMP connection <0.927.0> (172.18.0.1:49818 -> 172.18.0.3:61613)
+2024-04-02 00:22:19.342725+00:00 [warning] <0.927.0> AMQP 0-9-1 client call timeout was 70000 ms, is updated to a safe effective value of 130000 ms
+2024-04-02 00:22:40.224466+00:00 [info] <0.927.0> closing STOMP connection <0.927.0> (172.18.0.1:49818 -> 172.18.0.3:61613)
+2024-04-02 00:22:40.231294+00:00 [info] <0.953.0> accepting STOMP connection <0.953.0> (172.18.0.1:49084 -> 172.18.0.3:61613)
+2024-04-02 00:22:40.234760+00:00 [info] <0.953.0> closing STOMP connection <0.953.0> (172.18.0.1:49084 -> 172.18.0.3:61613)
