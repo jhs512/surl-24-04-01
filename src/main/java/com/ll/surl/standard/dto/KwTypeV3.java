@@ -7,7 +7,7 @@ public enum KwTypeV3 {
     ALL("all"),
     TITLE("title"),
     BODY("body"),
-    URL("URL");
+    URL("url");
 
     private final String value;
 }

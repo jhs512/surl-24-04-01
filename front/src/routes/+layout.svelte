@@ -36,6 +36,10 @@
 				tabindex="0"
 				class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
 			>
+				<li>
+					<a href="/surl/list"><i class="fa-solid fa-list-check"></i> 공개</a>
+				</li>
+
 				{#if rq.isLogin()}
 					<li>
 						<a href="/surl/mine"><i class="fa-solid fa-list-check"></i> 히스토리</a>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { prettyDateTime } from '$lib/utils/index';
+	import { prettyDateTime } from '$lib/utils/';
 	import type { components } from '$lib/backend/apiV1/schema';
 
 	const { surl }: { surl: components['schemas']['SurlDto'] } = $props();
