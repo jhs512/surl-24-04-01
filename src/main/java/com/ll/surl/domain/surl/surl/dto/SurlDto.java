@@ -22,6 +22,8 @@ public class SurlDto {
     @NonNull
     private long authorId;
     @NonNull
+    private String authorName;
+    @NonNull
     private String url;
     @NonNull
     private String title;
@@ -33,6 +35,7 @@ public class SurlDto {
         this.createDate = surl.getCreateDate();
         this.modifyDate = surl.getModifyDate();
         this.authorId = surl.getAuthor().getId();
+        this.authorName = surl.getAuthor().getName();
         this.url = surl.getUrl();
         this.title = surl.getTitle();
         this.body = surl.getBody();
@@ -43,6 +46,7 @@ public class SurlDto {
         this.createDate = surlDocument.getCreateDate();
         this.modifyDate = surlDocument.getModifyDate();
         this.authorId = surlDocument.getAuthorId();
+        this.authorName = surlDocument.getAuthorName();
         this.url = surlDocument.getUrl();
         this.title = surlDocument.getTitle();
         this.body = surlDocument.getBody();

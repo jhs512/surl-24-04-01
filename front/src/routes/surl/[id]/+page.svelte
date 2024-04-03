@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SurlDetail from '$lib/business/surl/SurlDetail.svelte';
-	//import SurlCommentWriteAndList from '$lib/business/surlComment/SurlCommentWriteAndList.svelte';
+	import SurlCommentWriteAndList from '$lib/business/surlComment/SurlCommentWriteAndList.svelte';
 
 	const { data } = $props();
 	const { surl } = data;
@@ -14,6 +14,6 @@
 <div class="flex flex-grow items-center justify-center">
 	<div class="mt-4 w-full px-2">
 		<SurlDetail {surl} />
-		<!-- <SurlCommentWriteAndList {surl} /> -->
+		<SurlCommentWriteAndList {surl} />
 	</div>
 </div>

@@ -29,8 +29,12 @@ public class PermissionService {
         };
     }
 
-    public void check(Member member, Surl surl, Action action) {
-        if (!can(member, surl, action)) {
+    public boolean canNot(Member actor, BaseEntity target, Action action) {
+        return !can(actor, target, action);
+    }
+
+    public void check(Member actor, BaseEntity target, Action action) {
+        if (!can(actor, target, action)) {
             throw new GlobalException("403-1", "권한이 없습니다.");
         }
     }

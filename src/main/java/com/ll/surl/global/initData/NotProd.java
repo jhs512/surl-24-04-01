@@ -59,6 +59,11 @@ public class NotProd {
         memberUser3.setRefreshToken("user3");
 
         Surl surl1 = surlService.create(memberUser1, "https://www.naver.com", "네이버", "네이버");
+
+        surl1.addComment(memberUser1, "네이버 댓글1", true);
+        surl1.addComment(memberUser2, "네이버 댓글2", true);
+        surl1.addComment(memberUser3, "네이버 댓글3", true);
+
         Surl surl2 = surlService.create(memberUser1, "https://www.google.com", "구글", "구글");
         Surl surl3 = surlService.create(memberUser2, "https://www.daum.net", "다음", "다음");
 

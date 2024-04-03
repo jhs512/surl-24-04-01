@@ -12,6 +12,12 @@ export interface paths {
     put: operations["modify"];
     delete: operations["delete"];
   };
+  "/api/v1/surlComments/{surlId}/{surlCommentId}": {
+    /** 댓글 수정 */
+    put: operations["edit"];
+    /** 댓글 삭제 */
+    delete: operations["delete_1"];
+  };
   "/api/v1/surls": {
     /** SURL 목록, 검색가능 */
     get: operations["getSurls"];
@@ -25,6 +31,10 @@ export interface paths {
   "/api/v1/members/login": {
     /** 로그인, accessToken, refreshToken 쿠키 생성됨 */
     post: operations["login"];
+  };
+  "/api/v1/surlComments/{surlId}": {
+    /** 댓글 다건조회 */
+    get: operations["getSurlComments"];
   };
   "/api/v1/members/me": {
     /** 내 정보 */
@@ -58,6 +68,35 @@ export interface components {
       msg: string;
       data: components["schemas"]["ModifySurlResponseBody"];
     };
+    EditCommentRequestBody: {
+      body: string;
+    };
+    EditCommentResponseBody: {
+      item: components["schemas"]["SurlCommentDto"];
+    };
+    RsDataEditCommentResponseBody: {
+      resultCode: string;
+      /** Format: int32 */
+      statusCode: number;
+      msg: string;
+      data: components["schemas"]["EditCommentResponseBody"];
+    };
+    SurlCommentDto: {
+      /** Format: int64 */
+      id: number;
+      /** Format: date-time */
+      createDate: string;
+      /** Format: date-time */
+      modifyDate: string;
+      /** Format: int64 */
+      authorId: number;
+      authorName: string;
+      authorProfileImgUrl: string;
+      body: string;
+      actorCanEdit?: boolean;
+      actorCanDelete?: boolean;
+      actorCanReply?: boolean;
+    };
     CreateSurlRequestBody: {
       title: string;
       body: string;
@@ -83,6 +122,7 @@ export interface components {
       modifyDate: string;
       /** Format: int64 */
       authorId: number;
+      authorName: string;
       url: string;
       title: string;
       body: string;
@@ -143,6 +183,16 @@ export interface components {
       statusCode: number;
       msg: string;
       data: components["schemas"]["GetSurlResponseBody"];
+    };
+    GetSurlCommentsResponseBody: {
+      items: components["schemas"]["SurlCommentDto"][];
+    };
+    RsDataGetSurlCommentsResponseBody: {
+      resultCode: string;
+      /** Format: int32 */
+      statusCode: number;
+      msg: string;
+      data: components["schemas"]["GetSurlCommentsResponseBody"];
     };
     MeResponseBody: {
       item: components["schemas"]["MemberDto"];
@@ -248,6 +298,57 @@ export interface operations {
       };
     };
   };
+  /** 댓글 수정 */
+  edit: {
+    parameters: {
+      path: {
+        surlId: number;
+        surlCommentId: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["EditCommentRequestBody"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RsDataEditCommentResponseBody"];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["RsDataEmpty"];
+        };
+      };
+    };
+  };
+  /** 댓글 삭제 */
+  delete_1: {
+    parameters: {
+      path: {
+        surlId: number;
+        surlCommentId: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RsDataEmpty"];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["RsDataEmpty"];
+        };
+      };
+    };
+  };
   /** SURL 목록, 검색가능 */
   getSurls: {
     parameters: {
@@ -323,6 +424,28 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["RsDataLoginResponseBody"];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        content: {
+          "application/json": components["schemas"]["RsDataEmpty"];
+        };
+      };
+    };
+  };
+  /** 댓글 다건조회 */
+  getSurlComments: {
+    parameters: {
+      path: {
+        surlId: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RsDataGetSurlCommentsResponseBody"];
         };
       };
       /** @description Bad Request */
