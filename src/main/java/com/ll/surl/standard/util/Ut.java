@@ -52,7 +52,7 @@ public class Ut {
 
         public static void run(String cmd) {
             try {
-                ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", cmd);
+                ProcessBuilder processBuilder = new ProcessBuilder(cmd.split(" "));
                 Process process = processBuilder.start();
                 process.waitFor(1, TimeUnit.MINUTES);
             } catch (Exception e) {

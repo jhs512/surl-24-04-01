@@ -18,8 +18,9 @@ public class Dev {
     ApplicationRunner initDev() {
         return args -> {
             String backUrl = AppConfig.getSiteBackUrl();
-            String cmd = "npx openapi-typescript " + backUrl + "/v3/api-docs/apiV1 -o ./front/src/lib/backend/apiV1/schema.d.ts";
-            Ut.cmd.runAsync(cmd);
+            Ut.cmd.run("curl -o apiV1.json -k " + backUrl + "/v3/api-docs/apiV1");
+            Ut.cmd.run("bash -c 'npx openapi-typescript apiV1.json -o ./front/src/lib/backend/apiV1/schema.d.ts'");
+            Ut.cmd.run("bash -c 'rm -f apiV1.json'");
         };
     }
 }

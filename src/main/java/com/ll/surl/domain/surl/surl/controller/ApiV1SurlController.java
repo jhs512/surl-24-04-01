@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -91,12 +92,13 @@ public class ApiV1SurlController {
     public record CreateSurlRequestBody(
             @NotBlank String title,
             @NotBlank String body,
-            @NotBlank String url
+            @NotBlank String url,
+            @NotNull boolean listed
     ) {
     }
 
     public record CreateSurlResponseBody(
-            String shortUrl
+            @NotBlank SurlDto item
     ) {
     }
 
@@ -107,7 +109,7 @@ public class ApiV1SurlController {
     ) {
         Surl surl = surlService.create(rq.getMember(), requestBody.url, requestBody.title, requestBody.body);
 
-        return RsData.of(new CreateSurlResponseBody(surl.getShortUrl()));
+        return RsData.of(new CreateSurlResponseBody(new SurlDto(surl)));
     }
 
 

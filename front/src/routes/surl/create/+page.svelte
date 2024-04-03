@@ -1,3 +1,37 @@
+<script lang="ts">
+	import rq from '$lib/rq/rq.svelte';
+
+	async function submitLoginForm(this: HTMLFormElement) {
+		const form: HTMLFormElement = this;
+
+		form.url.value = form.url.value.trim();
+
+		if (form.url.value.length === 0) {
+			rq.msgError('URL을 입력해주세요.');
+			form.url.focus();
+
+			return;
+		}
+
+		form.title_.value = form.title_.value.trim();
+		form.body.value = form.body.value.trim();
+
+		const { data, error } = await rq.apiEndPoints().POST('/api/v1/surls', {
+			body: {
+				url: form.url.value,
+				listed: form.listed.checked,
+				title: form.title_.value,
+				body: form.body.value
+			}
+		});
+
+		if (error) rq.msgError(error.msg);
+		else {
+			rq.msgAndRedirect(data, undefined, '/surl/' + data.data.item.id);
+		}
+	}
+</script>
+
 <div class="flex flex-grow justify-center">
 	<div class="my-4 w-full max-w-screen-2xl px-2">
 		<div class="text-center">
@@ -7,7 +41,7 @@
 
 		<div class="divider"></div>
 
-		<form class="grid grid-cols-1 gap-4">
+		<form class="grid grid-cols-1 gap-4" on:submit|preventDefault={submitLoginForm}>
 			<label class="form-control">
 				<div class="label">
 					<span class="label-text"> URL<strong>(필수)</strong> </span>
@@ -30,7 +64,7 @@
 				<input
 					class="input input-bordered"
 					type="text"
-					name="title"
+					name="title_"
 					maxlength="150"
 					autocomplete="off"
 				/></label

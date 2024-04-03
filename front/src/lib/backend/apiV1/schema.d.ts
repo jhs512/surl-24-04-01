@@ -62,9 +62,10 @@ export interface components {
       title: string;
       body: string;
       url: string;
+      listed: boolean;
     };
     CreateSurlResponseBody: {
-      shortUrl?: string;
+      item: components["schemas"]["SurlDto"];
     };
     RsDataCreateSurlResponseBody: {
       resultCode: string;
@@ -72,6 +73,19 @@ export interface components {
       statusCode: number;
       msg: string;
       data: components["schemas"]["CreateSurlResponseBody"];
+    };
+    SurlDto: {
+      /** Format: int64 */
+      id: number;
+      /** Format: date-time */
+      createDate: string;
+      /** Format: date-time */
+      modifyDate: string;
+      /** Format: int64 */
+      authorId: number;
+      url: string;
+      title: string;
+      body: string;
     };
     LoginRequestBody: {
       username: string;
@@ -119,19 +133,6 @@ export interface components {
       statusCode: number;
       msg: string;
       data: components["schemas"]["GetSurlsResponseBody"];
-    };
-    SurlDto: {
-      /** Format: int64 */
-      id: number;
-      /** Format: date-time */
-      createDate: string;
-      /** Format: date-time */
-      modifyDate: string;
-      /** Format: int64 */
-      authorId: number;
-      url: string;
-      title: string;
-      body: string;
     };
     GetSurlResponseBody: {
       item: components["schemas"]["SurlDto"];
